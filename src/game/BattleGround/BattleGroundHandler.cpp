@@ -47,6 +47,9 @@
 #include "BattleGroundMgr.h"
 #include "BattleGroundWS.h"
 #include "BattleGround.h"
+#if defined(USE_CUSTOM_CHANGES) && defined(ENABLE_PLAYERBOTS)
+#include "Custom/BattleGroundBotFill.h"
+#endif
 #include "Language.h"
 #include "ScriptMgr.h"
 #include "World.h"
@@ -278,6 +281,9 @@ void WorldSession::HandleBattlemasterJoinOpcode(WorldPacket& recv_data)
         DEBUG_LOG("Battleground: player joined queue for bg queue type %u bg type %u: GUID %u, NAME %s", bgQueueTypeId, bgTypeId, _player->GetGUIDLow(), _player->GetName());
     }
     sBattleGroundMgr.ScheduleQueueUpdate(bgQueueTypeId, bgTypeId, _player->GetBattleGroundBracketIdFromLevel(bgTypeId));
+#if defined(USE_CUSTOM_CHANGES) && defined(ENABLE_PLAYERBOTS)
+    sBattleGroundBotFill.OnQueueJoin(_player, bgQueueTypeId, bgTypeId);
+#endif
 }
 
 /**

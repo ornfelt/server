@@ -109,6 +109,10 @@
 #include "ElunaLoader.h"
 #endif /* ENABLE_ELUNA */
 
+#if defined(USE_CUSTOM_CHANGES) && defined(ENABLE_PLAYERBOTS)
+#include "Custom/BattleGroundBotFill.h"
+#endif
+
 #ifdef ENABLE_PLAYERBOTS
 
 #include "PlayerbotAIConfig.h"
@@ -1480,6 +1484,9 @@ void World::Update(uint32 diff)
     ///- Update objects (maps, transport, creatures,...)
     sMapMgr.Update(diff);
     sBattleGroundMgr.Update(diff);
+#if defined(USE_CUSTOM_CHANGES) && defined(ENABLE_PLAYERBOTS)
+    sBattleGroundBotFill.Update(diff);
+#endif
     sLFGMgr.Update(diff);
     sOutdoorPvPMgr.Update(diff);
 

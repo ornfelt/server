@@ -68,6 +68,7 @@ option(BUILD_TOOLS          "Build the client-data extractor"               ON)
 option(SCRIPT_LIB_ELUNA     "Compile with support for Eluna scripts"        ON)
 option(SCRIPT_LIB_SD3       "Compile with support for ScriptDev3 scripts"   ON)
 option(PLAYERBOTS           "Enable Player Bots"                            OFF)
+option(USE_CUSTOM_CHANGES   "Enable custom changes (playerbots fill BG queues)" ON)
 option(SOAP                 "Enable remote access via SOAP"                 OFF)
 option(PCH                  "Enable precompiled headers"                    ON)
 option(WITH_IO_URING        "Use the io_uring network backend (Linux, needs liburing)" OFF)
@@ -99,6 +100,7 @@ message(
     SCRIPT_LIB_SD3          Compile with support for ScriptDev3 scripts
    Modules:
     PLAYERBOTS              Enable Player Bots
+    USE_CUSTOM_CHANGES      Enable custom changes (e.g. playerbots fill BG queues, with PLAYERBOTS)
 
   To set an option simply type -D<OPTION>=<VALUE> after 'cmake <srcs>'.
   Also, you can specify the generator with -G. See 'cmake --help' for more details

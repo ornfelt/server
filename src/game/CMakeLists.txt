@@ -18,6 +18,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+#Custom changes group (USE_CUSTOM_CHANGES)
+file(GLOB SRC_GRP_CUSTOM Custom/*.cpp Custom/*.h)
+source_group("Custom" FILES ${SRC_GRP_CUSTOM})
+
 #AH Bot group
 file(GLOB SRC_GRP_AHBOT AuctionHouseBot/*.cpp AuctionHouseBot/*.h)
 source_group("AhBot" FILES ${SRC_GRP_AHBOT})
@@ -189,6 +193,7 @@ endif()
 configure_file(AuctionHouseBot/ahbot.conf.dist.in ${CMAKE_CURRENT_BINARY_DIR}/AuctionHouseBot/ahbot.conf.dist)
 
 add_library(game STATIC
+    ${SRC_GRP_CUSTOM}
     ${SRC_GRP_AHBOT}
     ${SRC_GRP_BATTLEGROUND}
     ${SRC_GRP_CHAT_COMMANDS}
@@ -250,6 +255,7 @@ target_compile_definitions(game
         $<$<OR:$<BOOL:${SCRIPT_LIB_ELUNA}>,$<BOOL:${PLAYERBOTS}>>:MANGOS_SCRIPT_COMPAT>
         $<$<BOOL:${SCRIPT_LIB_SD3}>:ENABLE_SD3>
         $<$<BOOL:${PLAYERBOTS}>:ENABLE_PLAYERBOTS>
+        $<$<BOOL:${USE_CUSTOM_CHANGES}>:USE_CUSTOM_CHANGES>
         $<$<BOOL:${SCRIPT_LIB_ELUNA}>:ENABLE_ELUNA ELUNA_EXPANSION=0 ELUNA_MANGOS>
 )
 
