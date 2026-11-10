@@ -395,7 +395,10 @@ bool BattleGroundBotFill::PrepareBot(Player* bot, FillBot const& fillBot)
 
     // below the battleground's bracket: the queuing player's level (the random bot rotation
     // re-levels its bots on its own schedule anyway)
-    if (bot->GetBattleGroundBracketIdFromLevel(fillBot.key.bgTypeId) != fillBot.key.bracketId)
+    // the bracket id is clamped at 0 below the battleground's minimum level, so a level 9 bot shares
+    // the level 60 bracket of Alterac Valley: the level access has to be checked as well
+    if (bot->GetBattleGroundBracketIdFromLevel(fillBot.key.bgTypeId) != fillBot.key.bracketId ||
+        !bot->GetBGAccessByLevel(fillBot.key.bgTypeId))
     {
         PlayerbotFactory factory(bot, fillBot.level);
         factory.Randomize();
